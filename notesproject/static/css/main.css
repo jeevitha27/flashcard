@@ -1,0 +1,227 @@
+body {
+  background: #fcfcfd;
+  color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.nav {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space:between;
+    width: 100%;
+}
+
+.nav-top-row > a:hover,
+.nav-top-right > a:hover,
+.nav-center-row > a:hover {
+    color:white;
+    font-weight:bold;
+}
+.nav-top-row {
+    display:flex;
+    justify-content:space-between;
+    width: 100%;
+}
+.navbar-brand {
+    color: rgba(255, 255, 255, .85);
+}
+.nav-top-right > a {
+    color: rgba(255, 255, 255, .9);
+    padding-left: 20px;
+}
+.nav-center-row {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+
+}
+.nav-center-row > a {
+    color: rgba(255, 255, 255, .9);
+    padding: 20px;
+}
+.bg-steel {
+  /*background-color: #5f788a;*/
+  background: #018DED url(http://unsplash.it/1500/500?image=881&blur=50);
+  box-shadow: 0 6px 6px -2px rgba(0,0,0,.4);
+}
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin: 20px 0;
+  box-shadow: 0 6px 6px -2px rgba(0,0,0,.2);
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.review-card {
+    display:flex;
+    width: 100%;
+    padding:20px;
+    min-height: 40px;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-shadow: 1px 3px #ddd;
+    margin: 20px 0;
+}
+
+.review-question-side {
+    padding: 20px;
+    width:40%;
+    display: flex;
+    align-items:center;
+    min-height:100%;
+}
+.review-answer-side {
+    padding: 20px;
+    width:60%;
+    min-height:100%;
+    border-left: 1px solid #eee;
+    display: flex;
+    align-items:center;
+}
+
+.flipme {
+    transform: rotateY(180deg);
+}
+
+
+
+.flash-card-header {
+    display:flex;
+    width: 100%;
+    border-bottom:1px solid #cbd5db;
+    color: #586f80;
+}
+.flash-card-footer {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top:10px;
+    border-top:1px solid #cbd5db;
+    color: #586f80;
+}
+.flash-card-question {
+    display:flex;
+    justify-content:center;
+    font-weight:bold;
+}
+
+
+
+#practice-list-test {
+    width:100%;
+    display:flex;
+    justify-content:center;
+
+}
+.practice-card  {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+	width:500px;
+	height:250px;
+	border-radius: 7px;
+	border: 1px solid #eee;
+	box-shadow: 1px 3px #ddd;
+	background: #eef5fa;;
+	padding:5px 30px;
+	margin: 25px 0;
+}
+
+.front, .back {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+/*Home page carousel*/
+.carousel-inner {
+    min-height:350px;
+    min-width;
+    min-width:800px;
+    background:#eef5fa;
+}
+.carousel-item {
+    text-align: center;
+}
+
+/*Upload Page */
+.upload-instructions {
+    display: flex;
+}
+.upload-instructions-left {
+    width: 40%;
+    display:flex;
+    flex-direction:column;
+}
+.upload-instructions-left > p {
+    padding: 25px;
+}
+
+.edit-card {
+    border: 1px solid #efefef;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+}
+.edit-card textarea {
+  width: 400px;
+  height: 100px;
+  margin-bottom: 15px;
+}

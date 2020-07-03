@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+        <p><h1> Here's the notes you created</h1></p>
+
+
+<form class="form-inline md-form mr-auto mb-4" action="/list" style="margin:auto;max-width:300px">
+  <input type="text" placeholder="Search.." name="search">
+  <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+
+{% if query_data %}
+{% for data in query_data%}
+
+<table id="myTable">
+  <tr class="header">
+          <th style="width:60%;">{{ data.category_name }}</th>
+    <th style="width:40%;">{{ data.title }}</th>
+  </tr>
+  <tr>
+    <td><a href="/review/{{ flash_card.id }}">Study as List</a></td>
+    <td><a href="/practice/{{ flash_card.id }}">Study as flashcard*</a></td>
+  </tr>
+</table>
+
+{% endfor %}
+
+{% else %}
+
+<br><br>
+{% for flash_card in flash_cards%}
+    <!--        {{ flash_card.category_name }} - {{ flash_card.title }}<br> -->
+
+<table id="myTable">
+  <tr class="header">
+          <th style="width:60%;">{{ flash_card.category_name }}</th>
+    <th style="width:40%;">{{ flash_card.title }}</th>
+  </tr>
+  <tr>
+    <td><a href="/review/{{ flash_card.id }}">Study as List</a></td>
+    <td><a href="/practice/{{ flash_card.id }}">Study as flashcard*</a></td>
+  </tr>
+</table>
+
+{% endfor %}
+
+{% endif %}
+
+<br><br>
+    {% for flash_card in flash_cards%}
+    <!--        {{ flash_card.category_name }} - {{ flash_card.title }}<br> -->
+
+<table id="myTable">
+  <tr class="header">
+          <th style="width:60%;">{{ flash_card.category_name }}</th>
+    <th style="width:40%;">{{ flash_card.title }}</th>
+  </tr>
+  <tr>
+    <td><a href="/review/{{ flash_card.id }}">Study as List</a></td>
+    <td><a href="/practice/{{ flash_card.id }}">Study as flashcard*</a></td>
+  </tr>
+</table>
+
+
+
+    {% endfor %}
+</div>
+{% endblock content %}

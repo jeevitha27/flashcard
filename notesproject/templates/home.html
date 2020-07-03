@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+    <h1>Notes Project</h1>
+    <p>
+        This app is designed to help students take notes and study them afterwords.
+        With this app you have your private are to...
+    </p>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" style="">
+        <div class="carousel-item active">
+          <h1>Take Notes with flash cards in mind!</h1>
+          <img src="/static/images/create_notes.png" style="max-width:800px;max-height:275px;" />
+        </div>
+        <div class="carousel-item">
+          <h1>Review Notes where you can edit them too.</h1>
+          <img src="/static/images/review.png" style="max-width:800px;max-height:275px;" />
+        </div>
+        <div class="carousel-item">
+          <h1>Easy to find your notes on the list page!</h1>
+        </div>
+        <div class="carousel-item">
+          <h1>Study Your notes as flash cards!</h1>
+            <img src="/static/images/flash_card.png" style="max-width:800px;max-height:275px;" />
+        </div>
+        <div class="carousel-item">
+          <h1>Upload Notes from a CSV file</h1>
+          <img src="/static/images/upload.png" style="max-width:800px;max-height:275px;" />
+        </div>
+        <div class="carousel-item">
+          <h1>See Flashcard scores with a dashboard view</h1>
+            <img src="/static/images/dashboard.png" style="max-width:800px;max-height:275px;" />
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+</div>
+
+{% endblock content %}

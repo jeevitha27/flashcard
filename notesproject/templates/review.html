@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Review</h1>
+    <h3>{{ flash_card.category_name}} - {{ flash_card.title }}</h3>
+    <button class="btn btn-info" onclick="restoreOrder()">Review in Order</button>
+    <button class="btn btn-info" onclick="shuffleList()">Shuffle Order</button>
+    <div id="review-list">
+        {% for data in flash_card.flash_card_data %}
+            <div class="review-card" id="flash-card-{{ data.id }}" data-id="{{ data.id }}">
+                <div class="review-question-side">
+                    {{ data.question }}
+                </div>
+                <div class="review-answer-side">
+                    {{ data.answer }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    orderedList = document.querySelectorAll('#review-list .review-card');
+    function shuffleList() {
+        for (var i = 0;i < orderedList.length * 20;i++) {
+            var timestamp = new Date()
+            var rand =  Math.floor((Math.random() * orderedList.length));
+            $('#review-list').append(orderedList[rand]);
+        }
+    }
+    function restoreOrder() {
+        for (var i = 0;i < orderedList.length;i++) {
+            var timestamp = new Date()
+            $('#review-list').append(orderedList[i]);
+        }
+    }
+
+</script>
+{% endblock content %}

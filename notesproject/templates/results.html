@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>Results Dashboard</h1>
+
+        <h3>Total for all Card Sets</h3>
+        <ul>
+            <li>Total Answers: {{ data.total_count }}</li>
+            <li>Total Correct: {{ data.total_right }}</li>
+            <li>Total Incorrect: {{ data.total_wrong }}</li>
+        </ul>
+
+        {% for title in data.titles %}
+            <h3 id="title-{{ loop.index0 }}">{{ title }}</h3>
+            <div id="chart-{{ loop.index0 }}"></div>
+        {% endfor %}
+
+    </div>
+
+
+
+<script>
+    var scores = JSON.parse('{{ data.scores|safe }}');
+    var js_titles = JSON.parse('{{ data.json_titles|safe }}');
+    var scores_data = [];
+    for (title in js_titles) {
+        scores_data.push(scores.filter(scoreSet => {
+            return scoreSet.card_set == js_titles[title];
+        }
+    ));
+    }
+    function buildChartData(titleId) {
+        var questions = scores_data[titleId].reduce((acc, score) => {
+            var correct = score.answer_correct == 1 ? 1 : 0;
+            var incorrect = score.answer_correct == 0 ? 1 : 0;
+            if (acc[score.question_id]) {
+                acc[score.question_id] = [
+                    score.question_id,
+                    acc[score.question_id][1] + correct,
+                    acc[score.question_id][2] + incorrect
+                ];
+            } else {
+                acc[score.question_id] = [score.question_id, correct, incorrect];
+            }
+
+            return acc;
+        }, []);
+        questions = questions.filter(function (item) { return item != undefined });
+        var reordered_questions = [];
+        var i = 0;
+        for (var index in questions) {
+            reordered_questions[i] = [
+                i + 1,
+                questions[index][1],
+                questions[index][2]
+            ];
+            i++;
+        }
+        return reordered_questions;
+    }
+
+    google.charts.load('current', {'packages':['corechart', 'scatter']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        for (var titleIndex in js_titles) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Question Number');
+            data.addColumn('number', 'Right Answers');
+            data.addColumn('number', 'Wrong Answers');
+
+            data.addRows(buildChartData(titleIndex));
+
+            var classicOptions = {
+              width: 600,
+              series: {
+                0: {targetAxisIndex: 0},
+                1: {targetAxisIndex: 1}
+              },
+              title: 'Answers Per Question (lifetime results)',
+
+              vAxes: {
+                // Adds titles to each axis.
+                0: {title: ''},
+                1: {title: ''}
+              }
+            };
+
+            function drawClassicChart() {
+              var classicChart = new google.visualization.ScatterChart(document.getElementById('chart-' + titleIndex));
+              classicChart.draw(data, classicOptions);
+            }
+
+            drawClassicChart();
+        }
+    };
+
+</script>
+
+{% endblock content %}

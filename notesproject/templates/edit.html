@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Edit Your Notes</h1>
+    <p style="color:red;">Please note that this page saves your changes after you click out of each box.  It does not wait for a save button to be clicked.</p>
+    <label for="category">Category</label>
+    <input id="category" type="text" value="{{ flash_card.category_name}}" name="category" onblur="updateCategory()"/>
+    <br>
+    <label for="title">Title</label>
+    <input id="title"type="text" value="{{ flash_card.title }}" name="title" onblur="updateTitle()"/>
+    <div id="edit-list">
+        {% for data in flash_card.flash_card_data %}
+            <div class="edit-card" id="flash-card-{{ data.id }}" data-id="{{ data.id }}">
+                <div class="edit-question-side">
+                    <h5>Question</h5>
+                    <textarea type="text" id="question-{{ data.id }}" onblur="updateQuestion({{data.id}})">{{ data.question }}</textarea>
+                </div>
+                <div class="edit-answer-side">
+                    <h5>Answer</h5>
+                    <textarea type="text" id="answer-{{ data.id }}" onblur="updateAnswer({{data.id}})">{{ data.answer }}</textarea>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    var flashCardId= {{flash_card.id}};
+    function updateQuestion(id) {
+        var text = document.querySelector('#question-'+ id).value;
+        console.log(text);
+        axios.put('/edit_question/' + id, {
+          text: text
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Error Updating Notes");
+        });
+    }
+
+    function updateAnswer(id) {
+        var text = document.querySelector('#answer-' + id).value;
+        axios.put('/edit_answer/' + id, {
+          text: text
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Error Updating Notes");
+        });
+     }
+     function updateTitle() {
+        var text = document.querySelector('#title').value;
+        console.log(text);
+        axios.put('/edit_title/' + flashCardId, {
+          text: text
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Error Updating Notes");
+        });
+    }
+
+    function updateCategory() {
+        var text = document.querySelector('#category').value;
+        axios.put('/edit_category/' + flashCardId, {
+          text: text
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Error Updating Notes");
+        });
+     }
+</script>
+{% endblock content %}

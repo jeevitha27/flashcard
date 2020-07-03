@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for flash_card in flash_cards%}
+        {{ flash_card.category_name }} - {{ flash_card.title }}<br>
+    <ol>
+        {% for data in flash_card.flash_card_data %}
+            <li>Question: {{ data.question }}<br>Answer: {{ data.answer }}</li>
+
+        {% endfor %}
+    </ol>
+
+    {% endfor %}
+{% endblock content %}

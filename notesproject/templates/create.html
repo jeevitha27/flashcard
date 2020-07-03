@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<br><br>
+<form action='/sample' method = "POST">
+<div class="Flashcard">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="createFlashcard" class="control-label col-xs-4"><strong>Create a new study set</strong></label>
+            <div class="col-xs-8">
+                <input id="title" type="textbox" class="form-control" name="Title" placeholder="Enter title for your Flashcard" required>
+            </div>
+        </div>
+    </form>
+    <br>
+   
+    <div class="row">
+        <div class="col-md-4">
+            <label for="enterCategory"><strong>Add your FlashCard to a Category</strong></label>
+        </div>
+        <div class="col-md-4">
+            <input type="textbox" class="form-control col-xs-6" id="category" name="Category"placeholder="Enter category">
+        </div>
+    </div>
+    <br>
+
+    <button class="btn btn-success" onclick="insertFlashcard()">CREATE</button> <br><br>
+
+                {% if link is defined %}
+                     <h4 style="color:#15334d;"> {{msg}} </h4>
+                    <h5 style="color:#204e75;">{{msgC}} {{catg}}</h5>
+                    <h5> {{msgT}} {{tle}} </h5>
+                {% endif %}
+
+    <table class="table" id="current-table">
+     <thead class="thead-light">
+            <th></th> 
+            <th>Enter Details of your Flashcard</th> 
+     </thead> 
+     <tbody> 
+     <tr> <hr/>
+        <td>
+        	<label for="enterTerm">1</label>&nbsp;
+    	</td>
+    	<td>
+    		<label class="sr-only col-xs-6" for="enterTerm">Enter term</label>
+        	<input name="term1" class="form-control" id="enterTerm" placeholder="Enter term">
+        </td>
+       <td>
+            <label class="sr-only col-xs-6" for="enterDef">Enter Definition</label>
+        	<input name="def1" class="form-control" id="enterDef" placeholder="Enter Definition">
+        </td>
+     </tr> <br>
+      <tr> 
+        <td>
+            <label for="enterTerm">2</label>&nbsp;
+        </td>
+        <td>
+            <label class="sr-only col-xs-6" for="enterTerm">Enter term</label>
+            <input name="term2" class="form-control" id="enterTerm" placeholder="Enter term">
+        </td>
+       <td>
+            <label class="sr-only col-xs-6" for="enterDef">Enter Definition</label>
+            <input name="def2" class="form-control" id="enterDef" placeholder="Enter Definition">
+        </td>
+     </tr> 
+
+     <br>
+      <tr> 
+        <td>
+            <label for="enterTerm">3</label>&nbsp;
+        </td>
+        <td>
+            <label class="sr-only col-xs-6" for="enterTerm">Enter term</label>
+            <input name="term3" class="form-control" id="enterTerm" placeholder="Enter term">
+        </td>
+       <td>
+            <label class="sr-only col-xs-6" for="enterDef">Enter Definition</label>
+            <input name="def3" class="form-control" id="enterDef" placeholder="Enter Definition">
+        </td>
+     </tr> 
+     <br>
+      <tr> 
+        <td>
+            <label for="enterTerm">4</label>&nbsp;
+        </td>
+        <td>
+            <label class="sr-only col-xs-6" for="enterTerm">Enter term</label>
+            <input name="term4" class="form-control" id="enterTerm" placeholder="Enter term">
+        </td>
+       <td>
+            <label class="sr-only col-xs-6" for="enterDef">Enter Definition</label>
+            <input name="def4" class="form-control" id="enterDef" placeholder="Enter Definition">
+        </td>
+     </tr> 
+     <br>
+      <tr> 
+        <td>
+            <label for="enterTerm">5</label>&nbsp;
+        </td>
+        <td>
+            <label class="sr-only col-xs-6" for="enterTerm">Enter term</label>
+            <input name="term5" class="form-control" id="enterTerm" placeholder="Enter term">
+        </td>
+       <td>
+            <label class="sr-only col-xs-6" for="enterDef">Enter Definition</label>
+            <input name="def5" class="form-control" id="enterDef" placeholder="Enter Definition">
+        </td>
+     </tr>
+     </tbody> 
+ </table>
+      
+    	<br>
+    		<div id="add-buttons">
+      		<button class="btn btn-outline-success" onclick="addRow()"><i class="fa fa-plus"></i>&nbsp;Add New Card</button>
+
+    		</div>
+		
+</div>
+
+</form>
+
+<script>
+  
+
+function addRow()  {
+    const tbody = document.querySelector('#current-table tbody');
+    var newRow = tbody.insertRow(tbody.rows.length);
+    var numCell = newRow.insertCell(0);
+    numCell.innerHTML = tbody.rows.length;
+    var termCell = newRow.insertCell(1);
+    termCell.innerHTML = `<input type="textbox" class="form-control" placeholder="Enter term">`;
+    var definitionCell = newRow.insertCell(2);
+    definitionCell.innerHTML = `<input type="textbox" class="form-control" placeholder="Enter Definition">`;
+
+}
+
+
+
+</script>
+
+{% endblock content %}

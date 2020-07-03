@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>Practice Flash Cards</h1>
+    <h3>{{ flash_card.category_name}} - {{ flash_card.title }}</h3>
+
+    <div id="practice-list">
+        {% for data in flash_card.flash_card_data %}
+        <div class="practice-card" id="flash-card-{{ data.id }}" data-id="{{ data.id }}" style="display:none">
+            <div class="front" id="flash-card-front-{{ data.id }}">
+                <div  class="flash-card-header">
+                    Question
+                </div>
+                <div class="flash-card-question">
+                    {{ data.question }}
+                </div>
+                <div class="flash-card-footer">
+                    <div class="left-side-buttons">
+                        <button class="previous-button btn btn-info" onclick="previousCard({{ data.id }})"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-info" onclick="flipCard({{ data.id }})"><i class="fas fa-redo"></i></button>
+                        <button class="next-button btn btn-info" onclick="nextCard({{ data.id }})"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <span class="cardsCount"></span>
+                </div>
+            </div>
+            <div class="back" id="flash-card-back-{{ data.id }}" style="display:none">
+                <div  class="flash-card-header">
+                    Answer
+                </div>
+                <div class="flash-card-question">
+                    {{ data.answer }}
+                </div>
+                <div class="flash-card-footer">
+                    <div class="left-side-buttons">
+                        <button class="previous-button btn btn-info" onclick="previousCard({{ data.id }})"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-info" onclick="flipCardBack({{ data.id }})"><i class="fas fa-undo"></i></button>
+                        <button class="btn btn-success" onclick="markRight({{ data.id }})"><i class="fas fa-check"></i></button>
+                        <button class="btn btn-danger" onclick="markWrong({{ data.id }})"><i class="fas fa-times"></i></button>
+                        <button class="next-button btn btn-info" onclick="nextCard({{ data.id }})"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <span class="cardsCount"></span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button id="in-order-button" class="btn btn-info" onclick="practiceInOrder()">Practice in Order</button>
+    <button id="random-button" class="btn btn-info" onclick="practiceRandom()">Practice Random Order</button>
+</div>
+
+<script>
+    var shuffle_mode = false;
+    var card_set = {{ card_set }};
+    var orderedList = document.querySelectorAll('#practice-list .practice-card');
+    var cardIds = Array.from(orderedList).map(list => parseInt(list.dataset.id));
+    var currentCardIndex = 0;
+    var currentCard = cardIds[currentCardIndex];
+    function practiceInOrder() {
+        shuffle_mode = false
+        orderedList = document.querySelectorAll('#practice-list .practice-card')
+        cardIds = Array.from(orderedList).map(list => parseInt(list.dataset.id));
+        practice()
+        currentCardIndex = 0;
+        currentCard = cardIds[currentCardIndex];
+    }
+    function practice() {
+        $('.back').hide();
+        $('.front').show();
+        $('.practice-card').hide();
+        $('.next-button').show();
+        $('.previous-button').show();
+        currentCard = cardIds[0];
+        $('#flash-card-' + cardIds[0] + ' .previous-button').hide();
+        updateCardCount();
+        $('#flash-card-' + cardIds[0]).show();
+    }
+    function flipCard(cardNumber) {
+        $('#flash-card-front-' + cardNumber).hide();
+        $('#flash-card-back-' + cardNumber).show();
+    }
+    function flipCardBack(cardNumber) {
+        $('#flash-card-back-' + cardNumber).hide();
+        $('#flash-card-front-' + cardNumber).show();
+    }
+    function nextCard(currentCardNumber) {
+        $('#flash-card-back-' + currentCard).hide();
+        $('#flash-card-front-' + currentCard).show();
+        $('#flash-card-' + currentCard).hide();
+        if (currentCardIndex < cardIds.length - 1) currentCardIndex++;
+        currentCard = cardIds[currentCardIndex];
+        if (currentCardIndex == cardIds.length - 1) {
+            $('#flash-card-' + cardIds[currentCardIndex] + ' .next-button').hide()
+        }
+        updateCardCount();
+        $('#flash-card-' + currentCard).show();
+    }
+    function previousCard(currentCardNumber) {
+        $('#flash-card-back-' + currentCard).hide();
+        $('#flash-card-front-' + currentCard).show();
+        $('#flash-card-' + currentCard).hide();
+        if (currentCardIndex > 0) currentCardIndex--;
+        currentCard = cardIds[currentCardIndex];
+        if (currentCardIndex == 0) {
+            $('#flash-card-' + cardIds[currentCardIndex] + ' .previous-button').hide()
+        }
+        updateCardCount();
+        $('#flash-card-' + currentCard).show();
+    }
+    function updateCardCount() {
+        total = cardIds.length;
+        $('.cardsCount').html(`${currentCardIndex + 1}/${total}`);
+    }
+    /*
+    * Shuffle algorithm comes from
+    * https://gomakethings.com/how-to-shuffle-an-array-with-vanilla-js/
+    */
+
+    var shuffle = function (array) {
+        var currentIndex = array.length;
+        var temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+
+    };
+    function practiceRandom() {
+        orderedList = document.querySelectorAll('#practice-list .practice-card');
+        cardIds = Array.from(orderedList).map(list => parseInt(list.dataset.id));
+        shuffle_mode=true;
+        for (var i = 1;i < 10;i++) {
+            shuffle(cardIds);
+        }
+        currentCardIndex = 0;
+        currentCard = cardIds[currentCardIndex];
+        practice();
+    }
+    function pullCardFromDeck() {
+        cardIds.splice(currentCardIndex, 1);
+        cardIds = cardIds.filter(val => val);
+        currentCardIndex = 0;
+        currentCard = cardIds[currentCardIndex];
+        practice();
+    }
+
+    function markRight(cardId) {
+        axios.post('/api/flashcard', {
+            card_set: card_set,
+            flashcard: cardId,
+            correct: 1
+          })
+          .then(function (response) {
+            pullCardFromDeck();
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          }
+        );
+    }
+
+    function markWrong(cardId) {
+        axios.post('/api/flashcard', {
+            card_set: card_set,
+            flashcard: cardId,
+            correct: 0
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          }
+        );
+    }
+</script>
+{% endblock content %}

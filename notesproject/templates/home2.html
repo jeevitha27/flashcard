@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Notes for us while working on this...</h1>
+<li>When you first start up the app, hit the url <a href="/setup_database">/setup_database</a> to add the flash card tables</li>
+<li>To add some sample data click  <a href="/addsampledata">/addsampledata</a> to add 2 rows of flashcards</li>
+<li>To see your current flashcard data goto  <a href="/viewflashcards">/viewflashcards</a> to see howevermany are in the system</li>
+<li>To DELETE all of the flashcard data goto  <a href="/cleardata">/cleardata</a> to see howevermany are in the system</li>
+
+<br><br>
+<h3>Some side notes that might help...</h3>
+<p>I named the set of flashcard, FlashCard  (This was probably a bad name)</p>
+<p>The individual flash card is named FlashCardData.  That is where the individual note is saved.</p>
+
+<br><br><hr><br>
+
+<p>I think here is where we can keep some notes for the class.  Maybe a feature list of things we have built ourselves.</p>
+<li>Upload CSV of your own flashcards!</li>
+<li>Create flashcards manually</li>
+<li>Only see your own lists</li>
+<li>study with a list or through flashcards</li>
+<li>Keep track of what you have gotten right and wrong!</li>
+<li>See a pretty picture of this puppy!</li>
+
+{% endblock content %}

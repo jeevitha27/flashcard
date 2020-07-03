@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="/static/js/upload.js"></script>
+
+<div class="content-section">
+    <h1>Upload Your Own List!</h1>
+    <div class="upload-instructions">
+        <div class="upload-instructions-left">
+            <p>Feel free to make a CSV of your choice and make two columns with the headers Question and Answer. Open your spreadsheet file of choice, save your file as a CSV and then upload it using our form.  At this time we are only accepting CSV formats.</p>
+            <div class="buttons-container" style="text-align:center;">
+                 <br><br>
+                 <button class="btn btn-success btn-lg upload-buttons"  type="button" onclick="loadUploadFileModal()"><i class="fas fa-file-upload"></i> Upload A CSV FILE</button>
+
+                 <br>
+                 {% if link is defined %}
+                     <h2 style="color:#15334d;"> {{msg}} </h2><br><br>
+                    <h3 style="color:#204e75;">{{msgC}} {{catg}}</h3>
+                    <h3> {{msgT}} {{tle}} </h3>
+                    <p><a href="/review/{{ link }}">See your list!</a></p>
+                    <p><a href="/practice/{{ link }}">Practice your list!</a></p>
+                {% endif %}
+             </div>
+        </div>
+        <img src="/static/images/csv.png" style="max-width:500px;max-height:500px;" />
+    </div>
+
+
+</div>
+ 
+<!--Modal to select a file  -->
+<div class="modal fade" id="uploadFileForm" tabindex="-1" role="dialog" aria-labelledby="uploadFileLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="uploadFileLabel">Select a Filename</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+     <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+            <div style="margin: 20px 0;">
+              Category: <input type="text" name="Category">
+              Title: <input type="text" name="Title">
+            </div>
+            <br>
+            <input type="file" name="file">
+            <input type="submit" class="btn btn-primary" value="Upload">
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+ 
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
